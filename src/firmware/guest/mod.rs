@@ -39,7 +39,7 @@ use GuestFFI::types::*;
 //     Ok(())
 // }
 
-/// A handle to the SEV, SEV-ES, or SEV-SNP platform.
+/// A handle to the SEV-SNP guest device.
 pub struct Firmware(File);
 
 impl Firmware {
