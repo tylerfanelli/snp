@@ -52,10 +52,7 @@ impl Firmware {
     /// ```
     pub fn open() -> std::io::Result<Firmware> {
         Ok(Firmware(
-            OpenOptions::new()
-                .read(true)
-                .write(true)
-                .open("/dev/sev-guest")?,
+            OpenOptions::new().read(true).open("/dev/sev-guest")?,
         ))
     }
 
