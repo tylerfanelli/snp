@@ -162,9 +162,9 @@ impl ReportReq {
     ///
     /// * `report_data` - (Optional) 64 bytes of unique data to be included in the generated report.
     /// * `vmpl` - The VMPL level the guest VM is running on.
-    pub fn new(report_data: Option<[u8; 64]>, vmpl: u32) -> Result<Self, VmplError> {
+    pub fn new(report_data: Option<[u8; 64]>, vmpl: u32) -> Result<Self, UserApiError> {
         if vmpl > MAX_VMPL {
-            return Err(VmplError);
+            return Err(UserApiError::VmplError);
         }
 
         Ok(Self {

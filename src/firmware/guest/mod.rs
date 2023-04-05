@@ -56,7 +56,8 @@ impl Firmware {
         ))
     }
 
-    /// Requests an attestation report from the AMD Secure Processor. The `message_version` will default to `1` if `None` is specified.
+    /// Requests an attestation report from the AMD Secure Processor. The `message_version` will default
+    /// to `1` if `None` is specified.
     ///
     /// # Example:
     ///
@@ -75,25 +76,30 @@ impl Firmware {
     /// // Open a connection to the AMD Secure Processor.
     /// let mut fw: Firmware = Firmware::open().unwrap();
     ///
+    /// // Set the VMPL level.
+    /// let vmpl = 1;
+    ///
     /// // Request the attestation report with our unique_data.
-    /// let attestation_report: AttestationReport = fw.snp_get_report(msg_ver, unique_data).unwrap();
+    /// let attestation_report: AttestationReport = fw.get_report(Some(msg_ver), Some(unique_data), vmpl).unwrap();
     /// ```
-    pub fn snp_get_report(
+    pub fn get_report(
         &mut self,
         message_version: Option<u8>,
-        mut report_request: ReportReq,
+        data: Option<[u8; 64]>,
+        vmpl: u32,
     ) -> Result<AttestationReport, UserApiError> {
-        let mut report_response: ReportRsp = Default::default();
+        let mut input = ReportReq::new(data, vmpl)?;
+        let mut response = ReportRsp::default();
 
         let mut request: GuestRequest<ReportReq, ReportRsp> =
-            GuestRequest::new(message_version, &mut report_request, &mut report_response);
+            GuestRequest::new(message_version, &mut input, &mut response);
 
         SNP_GET_REPORT.ioctl(&mut self.0, &mut request)?;
 
         // Disabled until upstream Linux kernel is patched.
         // check_fw_err(request.fw_err.into())?;
 
-        Ok(report_response.report)
+        Ok(response.report)
     }
 
     /// Request an extended attestation report from the AMD Secure Processor. The `message_version` will default to `1` if `None` is specified. Behaves the same as [`snp_get_report`](crate::firmware::guest::Firmware::snp_get_report).

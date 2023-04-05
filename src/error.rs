@@ -8,20 +8,6 @@ use std::{
 };
 use uuid;
 
-#[derive(Debug)]
-pub struct VmplError;
-
-impl Display for VmplError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "Invalid Virtual Machine Permisison Level (VMPL) specified!"
-        )
-    }
-}
-
-impl error::Error for VmplError {}
-
 /// An error representingthe upper 32 bits of a SW_EXITINFO2 field set by the VMM.
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
 pub enum VmmError {
@@ -165,6 +151,9 @@ pub enum UserApiError {
     /// Uuid parsing errors.
     UuidError(uuid::Error),
 
+    /// Invalid VMPL.
+    VmplError,
+
     /// Unknown error
     Unknown,
 }
@@ -176,6 +165,7 @@ impl error::Error for UserApiError {
             Self::FirmwareError(firmware_error) => Some(firmware_error),
             Self::UuidError(uuid_error) => Some(uuid_error),
             Self::VmmError(vmm_error) => Some(vmm_error),
+            Self::VmplError => None,
             Self::Unknown => None,
         }
     }
@@ -188,6 +178,7 @@ impl std::fmt::Display for UserApiError {
             Self::ApiError(error) => format!("Certificate Error Encountered: {error}"),
             Self::UuidError(error) => format!("UUID Error Encountered: {error}"),
             Self::VmmError(error) => format!("VMM Error Encountered: {error}"),
+            Self::VmplError => "Invalid VM Permission Level (VMPL)".to_string(),
             Self::Unknown => "Unknown Error Encountered!".to_string(),
         };
         write!(f, "{err_msg}")
