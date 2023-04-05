@@ -102,13 +102,18 @@ impl Firmware {
         Ok(response.report)
     }
 
-    /// Request an extended attestation report from the AMD Secure Processor. The `message_version` will default to `1` if `None` is specified. Behaves the same as [`snp_get_report`](crate::firmware::guest::Firmware::snp_get_report).
-    pub fn snp_get_ext_report(
+    /// Request an extended attestation report from the AMD Secure Processor.
+    /// The `message_version` will default to `1` if `None` is specified.
+    ///
+    /// Behaves the same as [`get_report`](crate::firmware::guest::Firmware::get_report).
+    pub fn get_ext_report(
         &mut self,
         message_version: Option<u8>,
-        mut report_request: ReportReq,
+        data: Option<[u8; 64]>,
+        vmpl: u32,
     ) -> Result<(AttestationReport, Vec<CertTableEntry>), UserApiError> {
-        let mut report_response: ReportRsp = Default::default();
+        let mut report_request = ReportReq::new(data, vmpl)?;
+        let mut report_response = ReportRsp::default();
 
         // Define a buffer to store the certificates in.
         let mut certificate_bytes: Vec<u8>;
@@ -116,7 +121,7 @@ impl Firmware {
         // Due to the complex buffer allocation, we will take the ReportReq
         // provided by the caller, and create an extended report request object
         // for them.
-        let mut ext_report_request: ExtReportReq = ExtReportReq::new(&mut report_request);
+        let mut ext_report_request = ExtReportReq::new(&mut report_request);
 
         // Construct the object needed to perform the IOCTL request.
         // *NOTE:* This is __important__ because a fw_err value which matches
