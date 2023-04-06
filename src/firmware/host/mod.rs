@@ -72,11 +72,13 @@ impl Firmware {
     ///
     /// let mut firmware: Firmware = Firmware::open().unwrap();
     ///
-    /// let status: PlatformStatus = firmware.snp_platform_status().unwrap();
+    /// let status: PlatformStatus = firmware.platform_status().unwrap();
     /// ```
-    pub fn snp_platform_status(&mut self) -> Result<PlatformStatus, Indeterminate<Error>> {
+    pub fn platform_status(&mut self) -> Result<PlatformStatus, Indeterminate<Error>> {
         let mut platform_status: PlatformStatus = PlatformStatus::default();
+
         SNP_PLATFORM_STATUS.ioctl(&mut self.0, &mut Command::from_mut(&mut platform_status))?;
+
         Ok(platform_status)
     }
 

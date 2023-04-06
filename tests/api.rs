@@ -18,7 +18,7 @@ fn get_identifier() {
 #[test]
 fn platform_status() {
     let mut fw: Firmware = Firmware::open().unwrap();
-    let status: PlatformStatus = fw.snp_platform_status().unwrap();
+    let status: PlatformStatus = fw.platform_status().unwrap();
 
     println!(
         "Platform status ioctl results:
@@ -85,7 +85,7 @@ fn snp_set_ext_config_std() {
 #[serial]
 fn snp_set_ext_invalid_config_std() {
     let mut fw: Firmware = Firmware::open().unwrap();
-    let platform_status: PlatformStatus = fw.snp_platform_status().unwrap();
+    let platform_status: PlatformStatus = fw.platform_status().unwrap();
 
     // Using Current TCB as Committed TCB is not available at the moment,
     // but ideally we would like to check Reported TCB <= Committed TCB, only.
