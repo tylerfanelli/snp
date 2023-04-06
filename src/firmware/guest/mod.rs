@@ -189,9 +189,9 @@ impl Firmware {
     /// let request: DerivedKey = DerivedKey::new(false, GuestFieldSelect(1), 0, 0, 0);
     ///
     /// let mut fw: Firmware = Firmware::open().unwrap();
-    /// let derived_key: DerivedKeyRsp = fw.snp_get_derived_key(None, request).unwrap();
+    /// let derived_key: DerivedKeyRsp = fw.get_derived_key(None, request).unwrap();
     /// ```
-    pub fn snp_get_derived_key(
+    pub fn get_derived_key(
         &mut self,
         message_version: Option<u8>,
         derived_key_request: DerivedKey,
