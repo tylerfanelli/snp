@@ -74,8 +74,7 @@ fn snp_set_ext_config_std() {
     let mut fw: Firmware = Firmware::open().unwrap();
     let new_config: ExtConfig = build_ext_config(true, true);
     let set_status: bool = fw.snp_set_ext_config(new_config).unwrap();
-    let reset_status: bool = fw.snp_reset_config().unwrap();
-    assert!(reset_status);
+    fw.reset_config().unwrap();
     assert!(set_status);
 }
 
@@ -95,7 +94,7 @@ fn snp_set_ext_invalid_config_std() {
         .snp_set_ext_config(ExtConfig::new_config_only(Config::new(invalid_tcb, 0)))
         .unwrap();
     assert!(!retval);
-    assert!(fw.snp_reset_config().unwrap());
+    fw.reset_config().unwrap();
 }
 
 #[cfg_attr(not(all(has_sev, feature = "dangerous_hw_tests")), ignore)]
@@ -107,8 +106,7 @@ fn snp_get_ext_config_std() {
     let new_config: ExtConfig = build_ext_config(true, true);
     let set_status: bool = fw.snp_set_ext_config(new_config.clone()).unwrap();
     let hw_config: ExtConfig = fw.snp_get_ext_config().unwrap();
-    let reset_status: bool = fw.snp_reset_config().unwrap();
-    assert!(reset_status);
+    fw.reset_config().unwrap();
     assert!(set_status);
     assert_eq!(new_config, hw_config);
 }
@@ -122,8 +120,7 @@ fn snp_get_ext_config_cert_only() {
     let new_config: ExtConfig = build_ext_config(true, false);
     fw.snp_set_ext_config(new_config.clone()).unwrap();
     let hw_config: ExtConfig = fw.snp_get_ext_config().unwrap();
-    let reset_status: bool = fw.snp_reset_config().unwrap();
-    assert!(reset_status);
+    fw.reset_config().unwrap();
     assert_eq!(new_config, hw_config);
 }
 
@@ -136,7 +133,6 @@ fn snp_get_ext_config_cfg_only() {
     let new_config: ExtConfig = build_ext_config(false, true);
     fw.snp_set_ext_config(new_config.clone()).unwrap();
     let hw_config: ExtConfig = fw.snp_get_ext_config().unwrap();
-    let reset_status: bool = fw.snp_reset_config().unwrap();
-    assert!(reset_status);
+    fw.reset_config().unwrap();
     assert_eq!(new_config, hw_config);
 }

@@ -89,9 +89,9 @@ impl Firmware {
     ///
     /// let mut firmware: Firmware = Firmware::open().unwrap();
     ///
-    /// let reset: bool = firmware.snp_reset_config().unwrap();
+    /// firmware.reset_config().unwrap();
     /// ```
-    pub fn snp_reset_config(&mut self) -> Result<bool, UserApiError> {
+    pub fn reset_config(&mut self) -> Result<(), UserApiError> {
         let mut config: FFI::types::SetExtConfig = FFI::types::SetExtConfig {
             config_address: 0,
             certs_address: 0,
@@ -99,7 +99,8 @@ impl Firmware {
         };
 
         SNP_SET_EXT_CONFIG.ioctl(&mut self.0, &mut Command::from_mut(&mut config))?;
-        Ok(true)
+
+        Ok(())
     }
     /// Fetch the SNP Extended Configuration.
     ///
