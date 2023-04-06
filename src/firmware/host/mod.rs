@@ -143,13 +143,13 @@ impl Firmware {
     /// pub const ASK: &[u8] = include_bytes!("../../certs/builtin/genoa/ask.pem");
     /// pub const VCEK: &[u8] = include_bytes!("vcek.pem");
     ///
-    /// let configuration: Config = Config::new(
+    /// let configuration = Config::new(
     ///     TcbVersion::new(3, 0, 10, 169),
     ///     0,
     /// );
     ///
     /// // Generate a vector of certificates to store in hypervisor memory.
-    /// let certificates: Vec<CertTableEntry> = vec![
+    /// let certificates = vec![
     ///     CertTableEntry::new(CertType::ARK, ARK.to_vec()),
     ///     CertTableEntry::new(CertType::ASK, ASK.to_vec()),
     ///     CertTableEntry::new(CertType::VCEK, VCEK.to_vec()),
@@ -160,9 +160,9 @@ impl Firmware {
     ///
     /// let mut firmware: Firmware = Firmware::open().unwrap();
     ///
-    /// let status: bool = firmware.snp_set_ext_config(ext_config).unwrap();
+    /// let status: bool = firmware.set_ext_config(ext_config).unwrap();
     /// ```
-    pub fn snp_set_ext_config(&mut self, mut new_config: ExtConfig) -> Result<bool, UserApiError> {
+    pub fn set_ext_config(&mut self, mut new_config: ExtConfig) -> Result<(), UserApiError> {
         let mut bytes: Vec<u8> = vec![];
 
         if let Some(ref mut certificates) = new_config.certs {
@@ -173,7 +173,8 @@ impl Firmware {
         new_ext_config.certs_address = bytes.as_mut_ptr() as u64;
 
         SNP_SET_EXT_CONFIG.ioctl(&mut self.0, &mut Command::from_mut(&mut new_ext_config))?;
-        Ok(true)
+
+        Ok(())
     }
 }
 
