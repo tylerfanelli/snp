@@ -105,7 +105,7 @@ fn snp_get_ext_config_std() {
     let mut fw: Firmware = Firmware::open().unwrap();
     let new_config: ExtConfig = build_ext_config(true, true);
     let set_status: bool = fw.snp_set_ext_config(new_config.clone()).unwrap();
-    let hw_config: ExtConfig = fw.snp_get_ext_config().unwrap();
+    let hw_config: ExtConfig = fw.get_ext_config().unwrap();
     fw.reset_config().unwrap();
     assert!(set_status);
     assert_eq!(new_config, hw_config);
@@ -119,7 +119,7 @@ fn snp_get_ext_config_cert_only() {
     let mut fw: Firmware = Firmware::open().unwrap();
     let new_config: ExtConfig = build_ext_config(true, false);
     fw.snp_set_ext_config(new_config.clone()).unwrap();
-    let hw_config: ExtConfig = fw.snp_get_ext_config().unwrap();
+    let hw_config: ExtConfig = fw.get_ext_config().unwrap();
     fw.reset_config().unwrap();
     assert_eq!(new_config, hw_config);
 }
@@ -132,7 +132,7 @@ fn snp_get_ext_config_cfg_only() {
     let mut fw: Firmware = Firmware::open().unwrap();
     let new_config: ExtConfig = build_ext_config(false, true);
     fw.snp_set_ext_config(new_config.clone()).unwrap();
-    let hw_config: ExtConfig = fw.snp_get_ext_config().unwrap();
+    let hw_config: ExtConfig = fw.get_ext_config().unwrap();
     fw.reset_config().unwrap();
     assert_eq!(new_config, hw_config);
 }

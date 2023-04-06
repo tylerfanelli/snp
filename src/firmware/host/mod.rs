@@ -108,11 +108,11 @@ impl Firmware {
     /// ```ignore
     /// let mut firmware: Firmware = Firmware::open().unwrap();
     ///
-    /// let status: ExtConfig = firmware.snp_get_ext_config().unwrap();
+    /// let status: ExtConfig = firmware.get_ext_config().unwrap();
     /// ```
-    pub fn snp_get_ext_config(&mut self) -> Result<ExtConfig, UserApiError> {
+    pub fn get_ext_config(&mut self) -> Result<ExtConfig, UserApiError> {
         let mut raw_buf: Vec<u8> = vec![0; _4K_PAGE];
-        let mut config: FFI::types::GetExtConfig = FFI::types::GetExtConfig {
+        let mut config = FFI::types::GetExtConfig {
             config_address: 0,
             certs_address: raw_buf.as_mut_ptr() as *mut CertTableEntry as u64,
             certs_len: _4K_PAGE as u32,
