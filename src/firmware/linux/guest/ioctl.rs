@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
-use std::marker::PhantomData;
-
 use crate::firmware::linux::guest::types::{
     DerivedKeyReq, DerivedKeyRsp, ExtReportReq, ReportReq, ReportRsp,
 };
+
+use std::marker::PhantomData;
+
 use iocuddle::{Group, Ioctl, WriteRead};
 
 pub enum GuestIoctl {

@@ -8,15 +8,20 @@
 
 mod types;
 
-use std::fs::{File, OpenOptions};
-
-use super::host::CertTableEntry;
-use crate::error::*;
 pub use types::*;
-use GuestFFI::ioctl::*;
-use GuestFFI::types::*;
 
-use crate::firmware::linux::guest::types::{ReportReq, ReportRsp};
+use crate::{
+    error::*,
+    firmware::{
+        host::CertTableEntry,
+        linux::{
+            guest::{ioctl::*, types::*},
+            host as HostFFI,
+        },
+    },
+};
+
+use std::fs::{File, OpenOptions};
 
 // Disabled until upstream Linux kernel is patched.
 //
