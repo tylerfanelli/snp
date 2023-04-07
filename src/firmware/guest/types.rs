@@ -3,7 +3,7 @@ use bitfield::bitfield;
 
 // Export types from the FFI layer which are applicable to the Rust-friendly APIs.
 pub use crate::firmware::linux::guest::types::{
-    AttestationReport, GuestPolicy, PlatformInfo, ReportReq, ReportRsp, TcbVersion,
+    AttestationReport, GuestPolicy, PlatformInfo, TcbVersion,
 };
 
 pub(crate) use crate::firmware::linux::guest as GuestFFI;

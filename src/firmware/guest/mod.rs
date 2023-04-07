@@ -16,6 +16,8 @@ pub use types::*;
 use GuestFFI::ioctl::*;
 use GuestFFI::types::*;
 
+use crate::firmware::linux::guest::types::{ReportReq, ReportRsp};
+
 // Disabled until upstream Linux kernel is patched.
 //
 // /// Checks the `fw_err` field on the [`GuestRequest`] structure
