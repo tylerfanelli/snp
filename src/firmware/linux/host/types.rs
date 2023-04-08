@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
-use crate::error::CertError;
-use crate::firmware::host as UAPI;
+use crate::{error::CertError, firmware::host as UAPI};
 
 use std::marker::PhantomData;
+
 use uuid::Uuid;
 
 /// Get the CPU's unique ID that can be used for getting

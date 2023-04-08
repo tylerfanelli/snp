@@ -1,10 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
-use iocuddle::*;
-use std::marker::PhantomData;
 
 use super::types::*;
-use crate::firmware::host::PlatformStatus;
-use crate::impl_const_id;
+
+use crate::{firmware::host::PlatformStatus, impl_const_id};
+
+use std::marker::PhantomData;
+
+use iocuddle::*;
 
 // These enum ordinal values are defined in the Linux kernel
 // source code: include/uapi/linux/psp-sev.h

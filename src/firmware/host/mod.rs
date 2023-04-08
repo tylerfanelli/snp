@@ -11,12 +11,12 @@ use std::{
     os::fd::{AsRawFd, RawFd},
 };
 
-use crate::error::*;
 pub use types::*;
 
-use FFI::ioctl::*;
-
-use self::types::FFI::types::GetId;
+use crate::{
+    error::*,
+    firmware::linux::host::{ioctl::*, types::GetId},
+};
 
 ///
 /// This is a façade function to give public access to the FFI parse table
