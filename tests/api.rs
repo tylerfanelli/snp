@@ -92,6 +92,17 @@ fn snp_set_ext_config_certs_only() {
 #[ignore]
 #[test]
 #[serial]
+fn snp_set_ext_config_cfg_only() {
+    let mut fw: Firmware = Firmware::open().unwrap();
+    let new_config: ExtConfig = build_ext_config(false, true);
+    fw.set_ext_config(new_config).unwrap();
+    fw.reset_config().unwrap();
+}
+
+#[cfg_attr(not(all(has_sev, feature = "dangerous_hw_tests")), ignore)]
+#[ignore]
+#[test]
+#[serial]
 fn snp_set_ext_invalid_config_std() {
     let mut fw: Firmware = Firmware::open().unwrap();
     let platform_status: PlatformStatus = fw.platform_status().unwrap();
