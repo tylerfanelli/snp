@@ -7,8 +7,6 @@
 //! The [VirTEE/snp](https://github.com/virtee/snp) crate offers a rust-friendly, simple-to-use API for interfacing with the AMD Secure Processor included within 3rd Generation -- or newer -- AMD EPYC processors.
 //!
 
-mod util;
-
 /// Includes built-in AMD certificates for verification of the root of trust.
 pub mod certs;
 
@@ -20,3 +18,5 @@ pub mod firmware;
 
 /// Structures and implementations for guest management of SNP machines.
 pub mod launch;
+
+mod util;
