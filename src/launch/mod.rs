@@ -11,7 +11,7 @@ mod linux;
 
 use crate::firmware::host::Version;
 #[cfg(target_os = "linux")]
-use crate::launch::linux::{ioctl::*, snp::*};
+use crate::launch::linux::{ioctl::*, *};
 
 use std::{io::Result, marker::PhantomData, os::unix::io::AsRawFd};
 

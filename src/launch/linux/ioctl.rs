@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
-use super::snp;
+use super::*;
 
 use crate::{
     error::{Error, Indeterminate},
@@ -20,10 +20,10 @@ impl_const_id! {
     /// The ioctl sub number
     pub Id => u32;
 
-    snp::Init = 22,
-    snp::LaunchStart<'_> = 23,
-    snp::LaunchUpdate<'_> = 24,
-    snp::LaunchFinish<'_> = 25,
+    Init = 22,
+    LaunchStart<'_> = 23,
+    LaunchUpdate<'_> = 24,
+    LaunchFinish<'_> = 25,
 }
 
 const KVM: Group = Group::new(0xAE);
@@ -34,16 +34,16 @@ pub const ENC_REG_REGION: Ioctl<Write, &KvmEncRegion> =
     unsafe { KVM.read::<KvmEncRegion>(0xBB).lie() };
 
 /// Initialize the SEV-SNP platform in KVM.
-pub const INIT: Ioctl<WriteRead, &Command<snp::Init>> = unsafe { ENC_OP.lie() };
+pub const INIT: Ioctl<WriteRead, &Command<Init>> = unsafe { ENC_OP.lie() };
 
 /// Initialize the flow to launch a guest.
-pub const LAUNCH_START: Ioctl<WriteRead, &Command<snp::LaunchStart>> = unsafe { ENC_OP.lie() };
+pub const LAUNCH_START: Ioctl<WriteRead, &Command<LaunchStart>> = unsafe { ENC_OP.lie() };
 
 /// Insert pages into the guest physical address space.
-pub const LAUNCH_UPDATE: Ioctl<WriteRead, &Command<snp::LaunchUpdate>> = unsafe { ENC_OP.lie() };
+pub const LAUNCH_UPDATE: Ioctl<WriteRead, &Command<LaunchUpdate>> = unsafe { ENC_OP.lie() };
 
 /// Complete the guest launch flow.
-pub const LAUNCH_FINISH: Ioctl<WriteRead, &Command<snp::LaunchFinish>> = unsafe { ENC_OP.lie() };
+pub const LAUNCH_FINISH: Ioctl<WriteRead, &Command<LaunchFinish>> = unsafe { ENC_OP.lie() };
 
 /// Corresponds to the kernel struct `kvm_enc_region`
 #[repr(C)]
