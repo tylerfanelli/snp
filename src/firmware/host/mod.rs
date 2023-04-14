@@ -6,16 +6,16 @@
 
 mod types;
 
-use std::{
-    fs::{File, OpenOptions},
-    os::fd::{AsRawFd, RawFd},
-};
-
 pub use types::*;
 
 use crate::{
     error::*,
     firmware::linux::host::{ioctl::*, types::GetId},
+};
+
+use std::{
+    fs::{File, OpenOptions},
+    os::fd::{AsRawFd, RawFd},
 };
 
 ///

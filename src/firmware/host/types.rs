@@ -3,8 +3,7 @@
 /// A representation of the type of data provided to [`parse_table`](crate::firmware::host::parse_table)
 pub use crate::firmware::linux::host::types::RawData;
 
-pub(crate) use crate::firmware::linux::guest::types::_4K_PAGE;
-pub(crate) use crate::firmware::linux::host as FFI;
+pub(crate) use crate::firmware::linux::{guest::types::_4K_PAGE, host as FFI};
 
 use bitflags;
 
