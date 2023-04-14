@@ -6,7 +6,6 @@ use std::{
     fmt::{Debug, Display},
     io,
 };
-use uuid;
 
 /// An error representingthe upper 32 bits of a SW_EXITINFO2 field set by the VMM.
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
