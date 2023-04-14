@@ -7,8 +7,10 @@ use crate::{
     impl_const_id,
 };
 
-use std::marker::PhantomData;
-use std::os::{raw::c_ulong, unix::io::AsRawFd};
+use std::{
+    marker::PhantomData,
+    os::{raw::c_ulong, unix::io::AsRawFd},
+};
 
 use iocuddle::*;
 

@@ -11,15 +11,12 @@ mod linux;
 
 use crate::firmware::host::Version;
 #[cfg(target_os = "linux")]
-use crate::launch::linux::ioctl::*;
-#[cfg(target_os = "linux")]
-use crate::launch::linux::snp::*;
+use crate::launch::linux::{ioctl::*, snp::*};
 
-use std::io::Result;
-use std::marker::PhantomData;
-use std::os::unix::io::AsRawFd;
+use std::{io::Result, marker::PhantomData, os::unix::io::AsRawFd};
 
 use bitflags::bitflags;
+
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
