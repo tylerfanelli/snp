@@ -1,21 +1,18 @@
 // SPDX-License-Identifier: Apache-2.0
 
-#[cfg(feature = "openssl")]
-mod cert;
+pub mod ecdsa;
 
 #[cfg(feature = "openssl")]
 pub mod ca;
 
 #[cfg(feature = "openssl")]
-mod chain;
-
-#[cfg(feature = "openssl")]
 pub mod builtin;
 
-pub mod ecdsa;
+#[cfg(feature = "openssl")]
+mod cert;
 
 #[cfg(feature = "openssl")]
-use openssl::x509::X509;
+mod chain;
 
 #[cfg(feature = "openssl")]
 pub use cert::Certificate;
@@ -23,13 +20,16 @@ pub use cert::Certificate;
 #[cfg(feature = "openssl")]
 pub use chain::Chain;
 
-#[cfg(feature = "openssl")]
-struct Body;
-
 use std::io::Result;
 
 #[cfg(feature = "openssl")]
 use std::io::{Error, ErrorKind};
+
+#[cfg(feature = "openssl")]
+use openssl::x509::X509;
+
+#[cfg(feature = "openssl")]
+struct Body;
 
 #[cfg(feature = "openssl")]
 /// An interface for types that may contain entities such as
